@@ -9,6 +9,13 @@ export default class CameraScreen extends React.Component {
     type: Camera.Constants.Type.back,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      labels: [],
+    };
+  }
+
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === "granted" });
@@ -17,15 +24,6 @@ export default class CameraScreen extends React.Component {
   async takePicture() {
     if (this.camera) {
       const pictureData = await this.camera.takePictureAsync({ base64: true });
-      // console.log(pictureData.base64);
-      // MediaLibrary.saveToLibraryAsync(pictureData.uri);
-      // const A = axios.create({
-      //   baseURL: "http://10.0.2.2:3000",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "X-Requested-With": "XMLHttpRequest",
-      //   },
-      // });
       await axios
         .post(
           "/api/v1/image_annotate",
@@ -38,7 +36,10 @@ export default class CameraScreen extends React.Component {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          const newLabels = res.data.labels;
+          this.setState({ labels: newLabels });
+
+          console.log(this.state.labels);
         })
         .catch((e) => {
           console.log(e);
@@ -90,6 +91,18 @@ export default class CameraScreen extends React.Component {
                   Flip
                 </Text>
               </TouchableOpacity> */}
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: "transparent",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
+                {this.state.labels.map((label) => {
+                  return <Text style={{ color: "#fff" }}>{label}</Text>;
+                })}
+              </View>
               <TouchableHighlight
                 style={{
                   borderRadius: 50,

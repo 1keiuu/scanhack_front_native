@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Button, TextInput } from "react-native";
-import User from "../User";
 import axios from "../plugins/axios.js";
-import ENV from "../environments";
+import storage from "../plugins/storage";
 
-export default class SignIn extends Component {
+export default class ItemList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,27 +11,35 @@ export default class SignIn extends Component {
     };
   }
   async onPressButton() {
-    // User.login();
+    console.log(this.state.name);
     await axios
       .post("/api/v1/users/signup", { name: this.state.name })
-      .then((res) => console.log(res))
+      .then((res) => {
+        storage.save({
+          key: "credentials",
+          data: { token: res.data.data.token, name: res.data.data.name },
+        });
+        this.props.navigation.navigate("Home");
+      })
       .catch((e) => {
-        console.log(e);
+        console.log(e.response.data.message[0]);
       });
   }
   render() {
     return (
       <View style={styles.container}>
-        <Text>Sign In</Text>
+        <Text>Sign Up</Text>
         <TextInput
           onChangeText={(name) => this.setState({ name })}
           value={this.state.name}
         />
         <Button
-          onPress={this.onPressButton}
-          title="Sign In"
+          onPress={() => {
+            this.onPressButton();
+          }}
+          title="Sign Up"
           color="#841584"
-          accessibilityLabel="Sign In about button"
+          accessibilityLabel="Sign Up button"
         />
       </View>
     );

@@ -1,22 +1,55 @@
 import React from "react";
-import { Button, View, TouchableHighlight, StyleSheet } from "react-native";
+import { Button, View, Text, StyleSheet } from "react-native";
 import { Switch, Router, Route, Link } from "react-router-dom";
-import CameraScreen from "./CameraScreen";
+import storage from "../plugins/storage";
 import { createMemoryHistory } from "history";
 export default class Home extends React.Component {
-  async componentDidMount() {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      current_user: "",
+    };
+  }
+  async componentDidMount() {
+    storage
+      .load({ key: "credentials" })
+      .then((res) => {
+        console.log(res);
+        // if (!res.token || !res.name || res.token == "" || res.name == "") {
+        //   this.props.navigation.navigate("SignUp");
+        // }
+        this.setState({ current_user: res.name });
+      })
+      .catch((err) => {
+        console.warn(err);
+        this.props.navigation.navigate("SignUp");
+      });
+  }
+  async componentDidUpdate() {
+    // storage
+    //   .load({ key: "credentials" })
+    //   .then((res) => {
+    //     console.log(res);
+    //     this.setState({ current_user: res.name });
+    //   })
+    //   .catch((err) => {
+    //     console.warn(err);
+    //     this.props.navigation.navigate("SignUp");
+    //   });
+  }
   render() {
     const history = createMemoryHistory();
 
     return (
       <View style={{ flex: 1 }}>
+        <Text>こんにちは{this.state.current_user}さん</Text>
         <Button
           title="Go to Camera"
           onPress={() => this.props.navigation.navigate("Camera")}
         />
         <Button
-          title="Go to SignIn"
-          onPress={() => this.props.navigation.navigate("SignIn")}
+          title="Go to SignUp"
+          onPress={() => this.props.navigation.navigate("SignUp")}
         />
       </View>
     );
