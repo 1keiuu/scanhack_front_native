@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Button,
+  TouchableHighlight,
+  Dimensions,
+} from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library";
@@ -42,9 +49,10 @@ export default class Home extends React.Component {
                 flex: 1,
                 backgroundColor: "transparent",
                 flexDirection: "row",
+                justifyContent: "center",
               }}
             >
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={{
                   flex: 0.1,
                   alignSelf: "flex-end",
@@ -64,8 +72,36 @@ export default class Home extends React.Component {
                 >
                   Flip
                 </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
+              </TouchableOpacity> */}
+              <TouchableHighlight
+                style={{
+                  borderRadius: 50,
+                  height: 80,
+                  width: 80,
+                  marginBottom: 10,
+                  backgroundColor: "#fff",
+                  justifyContent: "center",
+                  alignSelf: "flex-end",
+                }}
+                underlayColor="#ccc"
+                onPress={() => this.takePicture()}
+              >
+                <View
+                  style={{
+                    borderRadius: 50,
+                    height: 70,
+                    width: 70,
+                    borderColor: "#333",
+                    borderWidth: "1px",
+                    justifyContent: "center",
+                    alignSelf: "center",
+                  }}
+                  underlayColor="#ccc"
+                >
+                  <Text></Text>
+                </View>
+              </TouchableHighlight>
+              {/* <TouchableOpacity
                 style={{
                   flex: 1,
                   alignSelf: "flex-end",
@@ -73,13 +109,19 @@ export default class Home extends React.Component {
                 }}
                 onPress={() => this.takePicture()}
               >
-                <Text
-                  style={{ fontSize: 18, marginBottom: 10, color: "white" }}
-                >
-                  {" "}
-                  Camera{" "}
-                </Text>
-              </TouchableOpacity>
+
+                <Button
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: 0,
+                    marginBottom: 50,
+                    border: "1px solid white",
+                    backgroundColor: "white",
+                  }}
+                  title="a"
+                ></Button>
+              </TouchableOpacity> */}
             </View>
           </Camera>
         </View>
