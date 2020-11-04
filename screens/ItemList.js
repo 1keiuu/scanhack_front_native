@@ -29,18 +29,21 @@ export default class ItemList extends Component {
 
   async onPressAddButton() {
     const input = this.state.currentInput;
+
     // axios.defaults.headers.Authorization = `Bearer: ${this.state.user.token}`;
     axios
       .post(
         "/api/v1/users/" + this.state.user.id + "/items",
         { name: input },
         {
-          headers: { Authorization: "`Bearer:${this.state.user.token}`" },
+          headers: { Authorization: `Bearer: ${this.state.user.token}` },
         }
       )
       .then((res) => {
         console.log(res);
-        const newArray = this.state.items;
+        const newArray = this.state.items.map((item) => {
+          return item;
+        });
         newArray.push(input);
         this.setState({ items: newArray });
         this.setState({ currentInput: "" });
@@ -52,13 +55,27 @@ export default class ItemList extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text>持ち物を追加する</Text>
         <TextInput
-          onChange={(currentInput) => this.setState({ currentInput })}
+          onChangeText={(currentInput) => this.setState({ currentInput })}
           value={this.state.currentInput}
+          style={styles.input}
         />
         <Button title="追加" onPress={() => this.onPressAddButton()}>
           追加
         </Button>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "transparent",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          {this.state.items.map((item) => {
+            return <Text>{item}</Text>;
+          })}
+        </View>
       </View>
     );
   }
@@ -68,20 +85,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
+    alignItems: "center",
     backgroundColor: "aliceblue",
   },
-  preview: {
-    flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  capture: {
-    flex: 0,
-    backgroundColor: "#fff",
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: "center",
-    margin: 20,
+  input: {
+    borderColor: "#333",
+    borderWidth: 0.5,
+    width: "60%",
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 2,
+    marginTop: 50,
   },
 });

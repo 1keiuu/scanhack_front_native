@@ -47,7 +47,7 @@ export default class SignUp extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Sign Up</Text>
+        <Text>Welocme!</Text>
         <TextInput
           onChangeText={(name) => this.setState({ name })}
           value={this.state.name}
@@ -57,7 +57,7 @@ export default class SignUp extends Component {
           onPress={() => {
             this.onPressButton();
           }}
-          title="Sign Up"
+          title="アカウントを作成"
           color="#841584"
           accessibilityLabel="Sign Up button"
         />
