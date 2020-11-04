@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, View, TouchableHighlight, StyleSheet } from "react-native";
+import { Button, View, TouchableHighlight, StyleSheet } from "react-native";
 import { Switch, Router, Route, Link } from "react-router-dom";
-import CameraPage from "./CameraPage";
+import CameraScreen from "./CameraScreen";
 import { createMemoryHistory } from "history";
 export default class Home extends React.Component {
   async componentDidMount() {}
@@ -10,14 +10,14 @@ export default class Home extends React.Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <Link to="/cameraPage">
-          <Text>Camera</Text>
-        </Link>
-        <Router history={history}>
-          <Route exact path="/cameraPage">
-            <CameraPage />
-          </Route>
-        </Router>
+        <Button
+          title="Go to Camera"
+          onPress={() => this.props.navigation.navigate("Camera")}
+        />
+        <Button
+          title="Go to SignIn"
+          onPress={() => this.props.navigation.navigate("SignIn")}
+        />
       </View>
     );
   }
