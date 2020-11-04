@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableHighlight,
-  TextInput,
-} from "react-native";
+import { Text, View, StyleSheet, Button, TextInput } from "react-native";
 import axios from "../plugins/axios.js";
 import storage from "../plugins/storage";
 
@@ -42,6 +36,7 @@ export default class SignUp extends Component {
         this.props.navigation.navigate("Home");
       })
       .catch((e) => {
+        alert(e.response.data.message[0]);
         console.log(e.response.data.message[0]);
       });
   }
@@ -54,45 +49,14 @@ export default class SignUp extends Component {
           value={this.state.name}
           style={styles.nameInput}
         />
-        {/* <Button
+        <Button
           onPress={() => {
             this.onPressButton();
           }}
           title="Sign Up"
           color="#841584"
           accessibilityLabel="Sign Up button"
-        /> */}
-        <TouchableHighlight
-          style={{
-            borderRadius: 50,
-            height: 80,
-            width: 80,
-            marginBottom: 10,
-            backgroundColor: "#fff",
-            justifyContent: "center",
-            alignSelf: "flex-end",
-            zIndex: 1000,
-          }}
-          underlayColor="#ccc"
-          onPress={() => {
-            this.onPressButton();
-          }}
-        >
-          <View
-            style={{
-              borderRadius: 50,
-              height: 70,
-              width: 70,
-              borderColor: "#333",
-              borderWidth: "1px",
-              justifyContent: "center",
-              alignSelf: "center",
-            }}
-            underlayColor="#ccc"
-          >
-            <Text>te</Text>
-          </View>
-        </TouchableHighlight>
+        />
       </View>
     );
   }
