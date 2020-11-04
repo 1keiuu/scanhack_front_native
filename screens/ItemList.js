@@ -7,40 +7,58 @@ export default class ItemList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      user: {
+        id: null,
+        token: "",
+      },
+      currentInput: "",
+      items: [],
     };
   }
-  async onPressButton() {
-    console.log(this.state.name);
-    await axios
-      .post("/api/v1/users/signup", { name: this.state.name })
+  async componentDidMount() {
+    storage
+      .load({ key: "credentials" })
       .then((res) => {
-        storage.save({
-          key: "credentials",
-          data: { token: res.data.data.token, name: res.data.data.name },
-        });
-        this.props.navigation.navigate("Home");
+        console.log(res);
+        this.setState({ user: { id: res.id, token: res.token } });
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }
+
+  async onPressAddButton() {
+    const input = this.state.currentInput;
+    // axios.defaults.headers.Authorization = `Bearer: ${this.state.user.token}`;
+    axios
+      .post(
+        "/api/v1/users/" + this.state.user.id + "/items",
+        { name: input },
+        {
+          headers: { Authorization: "`Bearer:${this.state.user.token}`" },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        const newArray = this.state.items;
+        newArray.push(input);
+        this.setState({ items: newArray });
+        this.setState({ currentInput: "" });
       })
       .catch((e) => {
-        console.log(e.response.data.message[0]);
+        console.log(e.response.data.message);
       });
   }
   render() {
     return (
       <View style={styles.container}>
-        <Text>Sign Up</Text>
         <TextInput
-          onChangeText={(name) => this.setState({ name })}
-          value={this.state.name}
+          onChange={(currentInput) => this.setState({ currentInput })}
+          value={this.state.currentInput}
         />
-        <Button
-          onPress={() => {
-            this.onPressButton();
-          }}
-          title="Sign Up"
-          color="#841584"
-          accessibilityLabel="Sign Up button"
-        />
+        <Button title="追加" onPress={() => this.onPressAddButton()}>
+          追加
+        </Button>
       </View>
     );
   }

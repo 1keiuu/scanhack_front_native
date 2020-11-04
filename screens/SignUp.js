@@ -31,9 +31,13 @@ export default class SignUp extends Component {
       .then((res) => {
         storage.save({
           key: "credentials",
-          data: { token: res.data.data.token, name: res.data.data.name },
+          data: {
+            token: res.data.data.token,
+            name: res.data.data.name,
+            id: res.data.data.id,
+          },
         });
-        this.props.navigation.navigate("Home");
+        this.props.navigation.navigate("ItemList");
       })
       .catch((e) => {
         alert(e.response.data.message[0]);
