@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
+import * as MediaLibrary from "expo-media-library";
 export default class Home extends React.Component {
   state = {
     hasCameraPermission: null,
@@ -13,6 +14,13 @@ export default class Home extends React.Component {
     this.setState({ hasCameraPermission: status === "granted" });
   }
 
+  async takePicture() {
+    if (this.camera) {
+      const pictureData = await this.camera.takePictureAsync();
+      MediaLibrary.saveToLibraryAsync(pictureData.uri);
+    }
+  }
+
   render() {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
@@ -22,7 +30,13 @@ export default class Home extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.type}>
+          <Camera
+            style={{ flex: 1 }}
+            type={this.state.type}
+            ref={(ref) => {
+              this.camera = ref;
+            }}
+          >
             <View
               style={{
                 flex: 1,
@@ -49,6 +63,21 @@ export default class Home extends React.Component {
                   style={{ fontSize: 18, marginBottom: 10, color: "white" }}
                 >
                   Flip
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  alignSelf: "flex-end",
+                  alignItems: "center",
+                }}
+                onPress={() => this.takePicture()}
+              >
+                <Text
+                  style={{ fontSize: 18, marginBottom: 10, color: "white" }}
+                >
+                  {" "}
+                  Camera{" "}
                 </Text>
               </TouchableOpacity>
             </View>

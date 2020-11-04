@@ -5826,6 +5826,11 @@
   "resolved" "https://registry.npmjs.org/expo-location/-/expo-location-9.0.1.tgz"
   "version" "9.0.1"
 
+"expo-media-library@^9.2.1":
+  "integrity" "sha512-A9AAGI1200P0oULoXA7U7wQ91zgPWl9GWo5H9EQvVDHp1ABX8tf2qTOad6Y0KotHYWVMIyfsVXzVYAbjJ9LxPQ=="
+  "resolved" "https://registry.npmjs.org/expo-media-library/-/expo-media-library-9.2.1.tgz"
+  "version" "9.2.1"
+
 "expo-permissions@~9.3.0":
   "integrity" "sha512-ylSJZVvEGJVFTKsFrUL2S6gCvFt+/o8TJ3xT4WaMjHe2/2Z7R8ng6NR47Kt54t7XBIV/SZ7DIY9uRiR7TPuNYA=="
   "resolved" "https://registry.npmjs.org/expo-permissions/-/expo-permissions-9.3.0.tgz"
