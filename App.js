@@ -2,27 +2,42 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Switch, Router, Route } from "react-router-dom";
-import SignIn from "./pages/SignIn";
-import Home from "./pages/Home";
+import SignIn from "./screens/SignIn";
+import Home from "./screens/Home";
+import CameraScreen from "./screens/CameraScreen";
 import Auth from "./Auth";
 import { createMemoryHistory } from "history";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 
-const history = createMemoryHistory();
+const RootStack = createStackNavigator(
+  {
+    Home: Home,
+    SignIn: SignIn,
+    Camera: CameraScreen,
+  },
+  {
+    initialRouteName: "Home",
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
 export default function App() {
   return (
-    <View style={{ flex: 1 }}>
-      <Router history={history}>
-        <Route exact path="/signIn">
-          <SignIn />
-        </Route>
+    <AppContainer />
+    // <View style={{ flex: 1 }}>
+    //   <Router history={history}>
+    //     <Route exact path="/signIn">
+    //       <SignIn />
+    //     </Route>
 
-        {/* <Auth> */}
-        <Route exact path="/">
-          <Home />
-        </Route>
-        {/* </Auth> */}
-      </Router>
-    </View>
+    //     {/* <Auth> */}
+    //     <Route exact path="/">
+    //       <Home />
+    //     </Route>
+    //     {/* </Auth> */}
+    //   </Router>
+    // </View>
   );
 }
 
