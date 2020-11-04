@@ -23,22 +23,7 @@ const RootStack = createStackNavigator(
 
 const AppContainer = createAppContainer(RootStack);
 export default function App() {
-  return (
-    <AppContainer />
-    // <View style={{ flex: 1 }}>
-    //   <Router history={history}>
-    //     <Route exact path="/signIn">
-    //       <SignIn />
-    //     </Route>
-
-    //     {/* <Auth> */}
-    //     <Route exact path="/">
-    //       <Home />
-    //     </Route>
-    //     {/* </Auth> */}
-    //   </Router>
-    // </View>
-  );
+  return <AppContainer />;
 }
 
 const styles = StyleSheet.create({
