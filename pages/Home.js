@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Button,
-  TouchableHighlight,
-  Dimensions,
-} from "react-native";
+import { Text, View, TouchableHighlight } from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import * as MediaLibrary from "expo-media-library";
+import axios from "axios";
 export default class Home extends React.Component {
   state = {
     hasCameraPermission: null,
@@ -23,8 +17,35 @@ export default class Home extends React.Component {
 
   async takePicture() {
     if (this.camera) {
-      const pictureData = await this.camera.takePictureAsync();
-      MediaLibrary.saveToLibraryAsync(pictureData.uri);
+      const pictureData = await this.camera.takePictureAsync({ base64: true });
+      // console.log(pictureData.base64);
+      // MediaLibrary.saveToLibraryAsync(pictureData.uri);
+      console.log(pictureData.base64);
+
+      // const A = axios.create({
+      //   baseURL: "http://10.0.2.2:3000",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "X-Requested-With": "XMLHttpRequest",
+      //   },
+      // });
+      await axios
+        .post(
+          "http://localhost:3000/test",
+          { base64: pictureData.base64 },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data.massege);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
   }
 
