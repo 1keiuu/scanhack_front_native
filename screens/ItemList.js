@@ -15,6 +15,9 @@ export default class ItemList extends Component {
       items: [],
     };
   }
+  static navigationOptions = {
+    headerShown: false,
+  };
   async componentDidMount() {
     storage
       .load({ key: "credentials" })
@@ -52,6 +55,9 @@ export default class ItemList extends Component {
         console.log(e.response.data.message);
       });
   }
+  async onPressNextButton() {
+    this.props.navigation.navigate("Home");
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -76,6 +82,9 @@ export default class ItemList extends Component {
             return <Text key={"item" + i}>{item}</Text>;
           })}
         </View>
+        <Button title="完了" onPress={() => this.onPressNextButton()}>
+          完了
+        </Button>
       </View>
     );
   }

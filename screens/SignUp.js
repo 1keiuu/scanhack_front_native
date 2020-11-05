@@ -10,6 +10,9 @@ export default class SignUp extends Component {
       name: "",
     };
   }
+  static navigationOptions = {
+    headerShown: false,
+  };
   async componentDidMount() {
     storage
       .load({ key: "credentials" })

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Button } from "native-base";
+import { Button, Icon } from "native-base";
 import storage from "../plugins/storage";
 import { createMemoryHistory } from "history";
 export default class Home extends React.Component {
@@ -12,6 +12,7 @@ export default class Home extends React.Component {
   }
   static navigationOptions = {
     headerTitle: "ホーム",
+    headerLeft: false,
   };
   async componentDidMount() {
     storage
@@ -44,12 +45,25 @@ export default class Home extends React.Component {
     const history = createMemoryHistory();
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text>こんにちは{this.state.current_user}さん</Text>
         <Button
-          title="Go to Camera"
           onPress={() => this.props.navigation.navigate("Camera")}
-        />
+          style={{
+            width: 180,
+            height: 180,
+            borderRadius: 180 / 2,
+            flexDirection: "column",
+            alignSelf: "center",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Icon type="Entypo" name="camera" style={{ fontSize: 40 }} />
+          <Text style={{ color: "#fff", marginTop: 10, fontWeight: "bold" }}>
+            カメラを開く
+          </Text>
+        </Button>
         {/* <Button
           title="Go to SignUp"
           onPress={() => this.props.navigation.navigate("SignUp")}
