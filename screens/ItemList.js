@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Button, TextInput } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
+import { Input, Item, Button } from "native-base";
 import axios from "../plugins/axios.js";
 import storage from "../plugins/storage";
 
@@ -12,7 +13,9 @@ export default class ItemList extends Component {
         token: "",
       },
       currentInput: "",
+      errorText: "",
       items: [],
+      isSubmitBtnDisabled: true,
     };
   }
   static navigationOptions = {
@@ -50,9 +53,15 @@ export default class ItemList extends Component {
         newArray.push(input);
         this.setState({ items: newArray });
         this.setState({ currentInput: "" });
+        this.setState({ isSubmitBtnDisabled: false });
       })
       .catch((e) => {
-        console.log(e.response.data.message);
+        if (e.response.data.message[0] == "Nameを入力してください") {
+          this.setState({ errorText: "所持品名を入力してください" });
+        } else {
+          this.setState({ errorText: "エラーが発生しました" });
+        }
+        console.log(e.response.data.message[0]);
       });
   }
   async onPressNextButton() {
@@ -61,15 +70,24 @@ export default class ItemList extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>持ち物を追加する</Text>
-        <TextInput
-          onChangeText={(currentInput) => this.setState({ currentInput })}
-          value={this.state.currentInput}
-          style={styles.input}
-        />
-        <Button title="追加" onPress={() => this.onPressAddButton()}>
-          追加
-        </Button>
+        <Text style={styles.title}>持ち物を登録しよう！</Text>
+        <View style={styles.inputWrapper}>
+          <Item style={{ width: "70%" }} regular>
+            <Input
+              onChangeText={(currentInput) => {
+                this.setState({ errorText: "" });
+                this.setState({ currentInput });
+              }}
+              value={this.state.currentInput}
+              style={styles.input}
+              placeholder="所持品名"
+            />
+          </Item>
+          <Button style={styles.button} onPress={() => this.onPressAddButton()}>
+            <Text style={{ color: "#fff" }}>追加</Text>
+          </Button>
+        </View>
+        <Text style={styles.errorText}>{this.state.errorText}</Text>
         <View
           style={{
             flex: 1,
@@ -82,8 +100,12 @@ export default class ItemList extends Component {
             return <Text key={"item" + i}>{item}</Text>;
           })}
         </View>
-        <Button title="完了" onPress={() => this.onPressNextButton()}>
-          完了
+        <Button
+          style={styles.submitButton}
+          disabled={this.state.isSubmitBtnDisabled}
+          onPress={() => this.onPressNextButton()}
+        >
+          <Text style={{ color: "#fff" }}>完了</Text>
         </Button>
       </View>
     );
@@ -95,15 +117,33 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "aliceblue",
+    paddingTop: 130,
+    paddingBottom: 100,
+    backgroundColor: "#fff",
   },
-  input: {
-    borderColor: "#333",
-    borderWidth: 0.5,
-    width: "60%",
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 2,
-    marginTop: 50,
+  title: {
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  inputWrapper: {
+    flexDirection: "row",
+    width: "80%",
+    marginTop: 40,
+  },
+  errorText: {
+    color: "red",
+    marginTop: 10,
+  },
+  button: {
+    alignSelf: "center",
+    justifyContent: "center",
+    width: "25%",
+    marginLeft: 10,
+    height: "100%",
+  },
+  submitButton: {
+    alignSelf: "center",
+    justifyContent: "center",
+    width: "70%",
   },
 });
