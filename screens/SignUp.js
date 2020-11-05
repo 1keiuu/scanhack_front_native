@@ -25,7 +25,6 @@ export default class SignUp extends Component {
   }
 
   async onPressButton() {
-    console.log("this.state.name");
     await axios
       .post("/api/v1/users/signup", { name: this.state.name })
       .then((res) => {

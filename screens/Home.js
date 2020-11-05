@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, View, Text, StyleSheet } from "react-native";
-import { Switch, Router, Route, Link } from "react-router-dom";
+import { View, Text, StyleSheet } from "react-native";
+import { Button } from "native-base";
 import storage from "../plugins/storage";
 import { createMemoryHistory } from "history";
 export default class Home extends React.Component {
@@ -10,6 +10,9 @@ export default class Home extends React.Component {
       current_user: "",
     };
   }
+  static navigationOptions = {
+    headerTitle: "ホーム",
+  };
   async componentDidMount() {
     storage
       .load({ key: "credentials" })
