@@ -9,41 +9,13 @@ import { createStackNavigator } from "react-navigation-stack";
 
 const RootStack = createStackNavigator(
   {
-    Home: {
-      screen: Home,
-      // headerTitle: "ホーム",
-      // defaultNavigationOptions: {
-      //   headerTitle: "ホーム",
-      //   headerMode: "none",
-      // },
-    },
-    SignUp: {
-      screen: SignUp,
-      // defaultNavigationOptions: ({ navigation }) => ({
-      //   title: "SignUpsss",
-      //   headerMode: "none",
-      // }),
-    },
-    ItemList: {
-      screen: ItemList,
-      naviagtionOptions: {
-        // title: "ホーム",
-        headerMode: "none",
-      },
-    },
-    Camera: {
-      screen: CameraScreen,
-      naviagtionOptions: {
-        // title: "ホーム",
-        headerMode: "none",
-      },
-    },
+    Home: Home,
+    SignUp: SignUp,
+    ItemList: ItemList,
+    Camera: CameraScreen,
   },
   {
     initialRouteName: "SignUp",
-    // defaultNavigationOptions: {
-    //   headerMode: "none",
-    // },
   }
 );
 
