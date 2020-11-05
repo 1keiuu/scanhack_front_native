@@ -36,7 +36,7 @@ export default class ItemList extends Component {
         "/api/v1/users/" + this.state.user.id + "/items",
         { name: input },
         {
-          headers: { Authorization: `Bearer: ${this.state.user.token}` },
+          headers: { Authorization: `Token ${this.state.user.token}` },
         }
       )
       .then((res) => {
@@ -72,8 +72,8 @@ export default class ItemList extends Component {
             justifyContent: "center",
           }}
         >
-          {this.state.items.map((item) => {
-            return <Text>{item}</Text>;
+          {this.state.items.map((item, i) => {
+            return <Text key={"item" + i}>{item}</Text>;
           })}
         </View>
       </View>
