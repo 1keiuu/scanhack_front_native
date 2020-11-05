@@ -3,6 +3,8 @@ import { Text, View, TouchableHighlight } from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import axios from "../plugins/axios.js";
+import storage from "../plugins/storage";
+
 export default class CameraScreen extends React.Component {
   state = {
     hasCameraPermission: null,
@@ -12,13 +14,25 @@ export default class CameraScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      labels: [],
+      lost_items: [],
+      user: {
+        token: "",
+      },
     };
   }
 
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === "granted" });
+    storage
+      .load({ key: "credentials" })
+      .then((res) => {
+        console.log(res);
+        this.setState({ user: { token: res.token } });
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
   }
 
   async takePicture() {
@@ -29,17 +43,14 @@ export default class CameraScreen extends React.Component {
           "/api/v1/image_annotate",
           { base64: pictureData.base64 },
           {
-            headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest",
-            },
+            headers: { Authorization: `Token ${this.state.user.token}` },
           }
         )
         .then((res) => {
-          const newLabels = res.data.labels;
-          this.setState({ labels: newLabels });
+          const lostItems = res.data.data;
+          this.setState({ lost_items: lostItems });
 
-          console.log(this.state.labels);
+          console.log(this.state.lost_items);
         })
         .catch((e) => {
           console.log(e);
@@ -99,7 +110,7 @@ export default class CameraScreen extends React.Component {
                   justifyContent: "center",
                 }}
               >
-                {this.state.labels.map((label) => {
+                {this.state.lost_items.map((label) => {
                   return <Text style={{ color: "#fff" }}>{label}</Text>;
                 })}
               </View>

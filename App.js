@@ -1,24 +1,49 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Switch, Router, Route } from "react-router-dom";
 import SignUp from "./screens/SignUp";
 import Home from "./screens/Home";
 import CameraScreen from "./screens/CameraScreen";
 import ItemList from "./screens/ItemList";
-import { createMemoryHistory } from "history";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
 const RootStack = createStackNavigator(
   {
-    Home: Home,
-    SignUp: SignUp,
-    ItemList: ItemList,
-    Camera: CameraScreen,
+    Home: {
+      screen: Home,
+      // headerTitle: "ホーム",
+      // defaultNavigationOptions: {
+      //   headerTitle: "ホーム",
+      //   headerMode: "none",
+      // },
+    },
+    SignUp: {
+      screen: SignUp,
+      // defaultNavigationOptions: ({ navigation }) => ({
+      //   title: "SignUpsss",
+      //   headerMode: "none",
+      // }),
+    },
+    ItemList: {
+      screen: ItemList,
+      naviagtionOptions: {
+        // title: "ホーム",
+        headerMode: "none",
+      },
+    },
+    Camera: {
+      screen: CameraScreen,
+      naviagtionOptions: {
+        // title: "ホーム",
+        headerMode: "none",
+      },
+    },
   },
   {
     initialRouteName: "SignUp",
+    // defaultNavigationOptions: {
+    //   headerMode: "none",
+    // },
   }
 );
 
