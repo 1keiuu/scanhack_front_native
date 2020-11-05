@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Button, TextInput } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import axios from "../plugins/axios.js";
 import storage from "../plugins/storage";
+import { Button, Input, Item, Form } from "native-base";
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -50,19 +51,33 @@ export default class SignUp extends Component {
     return (
       <View style={styles.container}>
         <Text>Welocme!</Text>
-        <TextInput
-          onChangeText={(name) => this.setState({ name })}
-          value={this.state.name}
-          style={styles.nameInput}
-        />
+        <Item style={{ width: "70%", marginBottom: 30 }}>
+          <Input
+            onChangeText={(name) => this.setState({ name })}
+            value={this.state.name}
+            style={styles.nameInput}
+            placeholder="ユーザー名を入力"
+          />
+        </Item>
         <Button
           onPress={() => {
             this.onPressButton();
           }}
-          title="アカウントを作成"
-          color="#841584"
-          accessibilityLabel="Sign Up button"
-        />
+          style={{
+            width: "70%",
+            alignSelf: "center",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text
+            style={{
+              color: "#fff",
+            }}
+          >
+            アカウントを作成
+          </Text>
+        </Button>
       </View>
     );
   }
@@ -78,10 +93,10 @@ const styles = StyleSheet.create({
   },
   Title: {},
   nameInput: {
-    borderWidth: 1,
-    borderColor: "#333",
-    marginTop: 10,
-    marginBottom: 10,
-    width: "70%",
+    // borderWidth: 1,
+    // borderColor: "#333",
+    // marginTop: 10,
+    // marginBottom: 10,
+    // width: "70%",
   },
 });
