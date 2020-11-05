@@ -21,6 +21,10 @@ export default class CameraScreen extends React.Component {
     };
   }
 
+  static navigationOptions = {
+    mode: "modal",
+  };
+
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === "granted" });
@@ -49,7 +53,6 @@ export default class CameraScreen extends React.Component {
         .then((res) => {
           const lostItems = res.data.data;
           this.setState({ lost_items: lostItems });
-
           console.log(this.state.lost_items);
         })
         .catch((e) => {
