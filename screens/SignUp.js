@@ -50,8 +50,10 @@ export default class SignUp extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Welocme!</Text>
-        <Item style={{ width: "70%", marginBottom: 30 }}>
+        <Text style={{ fontWeight: "bold", fontSize: 30, marginBottom: 80 }}>
+          Welocme!
+        </Text>
+        <Item style={{ width: "70%", marginBottom: 50 }}>
           <Input
             onChangeText={(name) => this.setState({ name })}
             value={this.state.name}
