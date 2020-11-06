@@ -19,6 +19,12 @@ export default class ResultScreen extends React.Component {
   async componentDidMount() {
     const lostItems = this.props.navigation.state.params.lost_items;
     this.setState({ lost_items: lostItems });
+
+    if (this.props.navigation.state.params.lost_items.length === 0) {
+      setTimeout(() => {
+        this.props.navigation.navigate("Home");
+      }, 2000);
+    }
   }
 
   onButtonPress() {
@@ -29,66 +35,107 @@ export default class ResultScreen extends React.Component {
   }
 
   render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <View
-          style={
-            this.state.isLottieActive ? styles.lottie : { display: "none" }
-          }
-        >
-          <View style={styles.lottieInner}>
-            <Text
+    if (this.props.navigation.state.params.lost_items.length === 0) {
+      return (
+        <View style={{ flex: 1 }}>
+          <View style={styles.lottie}>
+            <View style={styles.lottieInner}>
+              <Text
+                style={{
+                  fontSize: 25,
+                  fontWeight: "bold",
+                  alignSelf: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 450,
+                }}
+              >
+                忘れ物はありません！
+              </Text>
+              <Text
+                style={{
+                  fontSize: 25,
+                  fontWeight: "bold",
+                  alignSelf: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 250,
+                }}
+              >
+                いってらっしゃい！
+              </Text>
+              <LottieView
+                source={require("../assets/animations/car.json")}
+                autoPlay
+              />
+            </View>
+          </View>
+        </View>
+      );
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          <View
+            style={
+              this.state.isLottieActive ? styles.lottie : { display: "none" }
+            }
+          >
+            <View style={styles.lottieInner}>
+              <Text
+                style={{
+                  fontSize: 25,
+                  fontWeight: "bold",
+                  alignSelf: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 450,
+                }}
+              >
+                いってらっしゃい！
+              </Text>
+              <LottieView
+                source={require("../assets/animations/car.json")}
+                autoPlay
+              />
+            </View>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "transparent",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={styles.title}>忘れ物をしていませんか？</Text>
+            <View style={styles.itemsWrapper}>
+              {this.state.lost_items.map((label, i) => {
+                return (
+                  <Text style={{ color: "#333" }} key={"item" + i}>
+                    {label}
+                  </Text>
+                );
+              })}
+            </View>
+            <Button
               style={{
-                fontSize: 25,
-                fontWeight: "bold",
+                width: "70%",
                 alignSelf: "center",
                 alignItems: "center",
                 justifyContent: "center",
-                marginBottom: 450,
+                marginTop: 30,
               }}
+              onPress={() => this.onButtonPress()}
             >
-              いってらっしゃい！
-            </Text>
-            <LottieView
-              source={require("../assets/animations/car.json")}
-              autoPlay
-            />
+              <Text style={{ color: "#fff", fontWeight: "bold" }}>
+                出かける
+              </Text>
+            </Button>
           </View>
         </View>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "transparent",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text style={styles.title}>これらの忘れ物をしていませんか？</Text>
-          <View style={styles.itemsWrapper}>
-            {this.state.lost_items.map((label, i) => {
-              return (
-                <Text style={{ color: "#333" }} key={"item" + i}>
-                  {label}
-                </Text>
-              );
-            })}
-          </View>
-          <Button
-            style={{
-              width: "70%",
-              alignSelf: "center",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 30,
-            }}
-            onPress={() => this.onButtonPress()}
-          >
-            <Text style={{ color: "#fff", fontWeight: "bold" }}>出かける</Text>
-          </Button>
-        </View>
-      </View>
-    );
+      );
+    }
   }
 }
 

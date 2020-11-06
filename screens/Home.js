@@ -28,18 +28,7 @@ export default class Home extends React.Component {
         this.props.navigation.navigate("SignUp");
       });
   }
-  async componentDidUpdate() {
-    // storage
-    //   .load({ key: "credentials" })
-    //   .then((res) => {
-    //     console.log(res);
-    //     this.setState({ current_user: res.name });
-    //   })
-    //   .catch((err) => {
-    //     console.warn(err);
-    //     this.props.navigation.navigate("SignUp");
-    //   });
-  }
+  async componentDidUpdate() {}
   render() {
     const history = createMemoryHistory();
 
@@ -76,6 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
+    backgroundColor: "#fff",
   },
   preview: {
     flex: 1,
