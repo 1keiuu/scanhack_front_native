@@ -78,6 +78,17 @@ export default class SignUp extends Component {
             アカウントを作成
           </Text>
         </Button>
+        <Button
+          transparent
+          onPress={() => this.props.navigation.navigate("SignIn")}
+          style={{ alignSelf: "center", color: "primary" }}
+        >
+          <Text
+            style={{ alignSelf: "center", color: "#2E88F0", marginTop: 20 }}
+          >
+            アカウントをお持ちの方はこちら
+          </Text>
+        </Button>
       </View>
     );
   }
