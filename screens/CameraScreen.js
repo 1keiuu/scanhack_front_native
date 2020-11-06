@@ -10,6 +10,7 @@ import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import axios from "../plugins/axios.js";
 import storage from "../plugins/storage";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default class CameraScreen extends React.Component {
   state = {
@@ -76,9 +77,12 @@ export default class CameraScreen extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <View style={this.state.isLoading ? styles.overlay : ""}>
-            <TouchableOpacity></TouchableOpacity>
-          </View>
+          <Spinner
+            visible={this.state.isLoading}
+            textContent="読込中..."
+            textStyle={{ color: "#fff" }}
+            overlayColor="rgba(0,0,0,0.5)"
+          />
           <Camera
             style={{ flex: 1 }}
             type={this.state.type}
