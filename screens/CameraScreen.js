@@ -132,7 +132,7 @@ export default class CameraScreen extends React.Component {
 
 const styles = StyleSheet.create({
   overlay: {
-    backgroundColor: "#fff",
+    backgroundColor: "#333",
     opacity: 0.2,
     position: "absolute",
     top: 0,

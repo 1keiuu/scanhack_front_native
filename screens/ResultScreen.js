@@ -31,8 +31,12 @@ export default class ResultScreen extends React.Component {
           }}
         >
           <Text style={styles.title}>忘れ物をしていませんか？</Text>
-          {this.state.lost_items.map((label) => {
-            return <Text style={{ color: "#333" }}>{label}</Text>;
+          {this.state.lost_items.map((label, i) => {
+            return (
+              <Text style={{ color: "#333" }} key={"item" + i}>
+                {label}
+              </Text>
+            );
           })}
         </View>
       </View>
