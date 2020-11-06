@@ -17,7 +17,6 @@ export default class Home extends React.Component {
     storage
       .load({ key: "credentials" })
       .then((res) => {
-        console.log(res);
         // if (!res.token || !res.name || res.token == "" || res.name == "") {
         //   this.props.navigation.navigate("SignUp");
         // }
@@ -35,7 +34,7 @@ export default class Home extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={{ fontWeight: "bold", fontSize: 18, marginBottom: 150 }}>
-          こんにちは{this.state.current_user}さん
+          こんにちは {this.state.current_user}さん
         </Text>
         <Button
           onPress={() => this.props.navigation.navigate("Camera")}
