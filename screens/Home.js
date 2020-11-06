@@ -12,7 +12,6 @@ export default class Home extends React.Component {
   }
   static navigationOptions = {
     headerTitle: "ホーム",
-    headerLeft: false,
   };
   async componentDidMount() {
     storage

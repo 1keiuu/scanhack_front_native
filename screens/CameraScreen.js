@@ -1,5 +1,11 @@
 import React from "react";
-import { Text, View, TouchableHighlight } from "react-native";
+import {
+  Text,
+  View,
+  TouchableHighlight,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import axios from "../plugins/axios.js";
@@ -17,6 +23,7 @@ export default class CameraScreen extends React.Component {
       user: {
         token: "",
       },
+      isLoading: false,
     };
   }
 
@@ -39,6 +46,7 @@ export default class CameraScreen extends React.Component {
   }
 
   async takePicture() {
+    this.setState({ isLoading: true });
     if (this.camera) {
       const pictureData = await this.camera.takePictureAsync({ base64: true });
       await axios
@@ -57,6 +65,7 @@ export default class CameraScreen extends React.Component {
           console.log(e);
         });
     }
+    this.setState({ isLoading: false });
   }
   render() {
     const { hasCameraPermission } = this.state;
@@ -67,6 +76,9 @@ export default class CameraScreen extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
+          <View style={this.state.isLoading ? styles.overlay : ""}>
+            <TouchableOpacity></TouchableOpacity>
+          </View>
           <Camera
             style={{ flex: 1 }}
             type={this.state.type}
@@ -117,3 +129,15 @@ export default class CameraScreen extends React.Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  overlay: {
+    backgroundColor: "#fff",
+    opacity: 0.2,
+    position: "absolute",
+    top: 0,
+    zIndex: 100,
+    height: "100%",
+    width: "100%",
+  },
+});
