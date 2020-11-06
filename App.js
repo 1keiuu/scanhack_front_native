@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SignUp from "./screens/SignUp";
+import SignIn from "./screens/SignIn";
 import Home from "./screens/Home";
 import CameraScreen from "./screens/CameraScreen";
 import ResultScreen from "./screens/ResultScreen";
@@ -12,6 +13,7 @@ const RootStack = createStackNavigator(
   {
     Home: Home,
     SignUp: SignUp,
+    SignIn: SignIn,
     ItemList: ItemList,
     Camera: CameraScreen,
     Result: ResultScreen,

@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, View, TouchableHighlight, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
-export default class CameraScreen extends React.Component {
+export default class ResultScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
