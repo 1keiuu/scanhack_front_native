@@ -14,7 +14,6 @@ export default class CameraScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lost_items: [],
       user: {
         token: "",
       },
@@ -52,8 +51,7 @@ export default class CameraScreen extends React.Component {
         )
         .then((res) => {
           const lostItems = res.data.data;
-          this.setState({ lost_items: lostItems });
-          console.log(this.state.lost_items);
+          this.props.navigation.navigate("Result", { lost_items: lostItems });
         })
         .catch((e) => {
           console.log(e);
@@ -84,45 +82,12 @@ export default class CameraScreen extends React.Component {
                 justifyContent: "center",
               }}
             >
-              {/* <TouchableOpacity
-                style={{
-                  flex: 0.1,
-                  alignSelf: "flex-end",
-                  alignItems: "center",
-                }}
-                onPress={() => {
-                  this.setState({
-                    type:
-                      this.state.type === Camera.Constants.Type.back
-                        ? Camera.Constants.Type.front
-                        : Camera.Constants.Type.back,
-                  });
-                }}
-              >
-                <Text
-                  style={{ fontSize: 18, marginBottom: 10, color: "white" }}
-                >
-                  Flip
-                </Text>
-              </TouchableOpacity> */}
-              <View
-                style={{
-                  flex: 1,
-                  backgroundColor: "transparent",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                }}
-              >
-                {this.state.lost_items.map((label) => {
-                  return <Text style={{ color: "#fff" }}>{label}</Text>;
-                })}
-              </View>
               <TouchableHighlight
                 style={{
                   borderRadius: 50,
                   height: 80,
                   width: 80,
-                  marginBottom: 10,
+                  marginBottom: 15,
                   backgroundColor: "#fff",
                   justifyContent: "center",
                   alignSelf: "flex-end",
@@ -145,27 +110,6 @@ export default class CameraScreen extends React.Component {
                   <Text></Text>
                 </View>
               </TouchableHighlight>
-              {/* <TouchableOpacity
-                style={{
-                  flex: 1,
-                  alignSelf: "flex-end",
-                  alignItems: "center",
-                }}
-                onPress={() => this.takePicture()}
-              >
-
-                <Button
-                  style={{
-                    width: 50,
-                    height: 50,
-                    borderRadius: 0,
-                    marginBottom: 50,
-                    border: "1px solid white",
-                    backgroundColor: "white",
-                  }}
-                  title="a"
-                ></Button>
-              </TouchableOpacity> */}
             </View>
           </Camera>
         </View>
