@@ -1,11 +1,14 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Modal } from "react-native";
+import { Button } from "native-base";
+import LottieView from "lottie-react-native";
 
 export default class ResultScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       lost_items: [],
+      isLottieActive: false,
     };
   }
 
@@ -18,9 +21,40 @@ export default class ResultScreen extends React.Component {
     this.setState({ lost_items: lostItems });
   }
 
+  onButtonPress() {
+    this.setState({ isLottieActive: true });
+    setTimeout(() => {
+      this.props.navigation.navigate("Home");
+    }, 2000);
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <View
+          style={
+            this.state.isLottieActive ? styles.lottie : { display: "none" }
+          }
+        >
+          <View style={styles.lottieInner}>
+            <Text
+              style={{
+                fontSize: 25,
+                fontWeight: "bold",
+                alignSelf: "center",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 450,
+              }}
+            >
+              いってらっしゃい！
+            </Text>
+            <LottieView
+              source={require("../assets/animations/car.json")}
+              autoPlay
+            />
+          </View>
+        </View>
         <View
           style={{
             flex: 1,
@@ -30,14 +64,28 @@ export default class ResultScreen extends React.Component {
             alignItems: "center",
           }}
         >
-          <Text style={styles.title}>忘れ物をしていませんか？</Text>
-          {this.state.lost_items.map((label, i) => {
-            return (
-              <Text style={{ color: "#333" }} key={"item" + i}>
-                {label}
-              </Text>
-            );
-          })}
+          <Text style={styles.title}>これらの忘れ物をしていませんか？</Text>
+          <View style={styles.itemsWrapper}>
+            {this.state.lost_items.map((label, i) => {
+              return (
+                <Text style={{ color: "#333" }} key={"item" + i}>
+                  {label}
+                </Text>
+              );
+            })}
+          </View>
+          <Button
+            style={{
+              width: "70%",
+              alignSelf: "center",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 30,
+            }}
+            onPress={() => this.onButtonPress()}
+          >
+            <Text style={{ color: "#fff", fontWeight: "bold" }}>出かける</Text>
+          </Button>
         </View>
       </View>
     );
@@ -47,5 +95,26 @@ export default class ResultScreen extends React.Component {
 const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
+    fontSize: 25,
+    marginBottom: 30,
+  },
+  itemsWrapper: {
+    height: "25%",
+  },
+  lottieInner: {
+    flex: 2,
+    width: "80%",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+  },
+  lottie: {
+    position: "absolute",
+    top: 0,
+    zIndex: 99,
+    height: "100%",
+    width: "100%",
+    backgroundColor: "#fff",
+    display: "flex",
   },
 });
