@@ -37,7 +37,7 @@ export default class ResultScreen extends React.Component {
   render() {
     if (this.props.navigation.state.params.lost_items.length === 0) {
       return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: "#fff" }}>
           <View style={styles.lottie}>
             <View style={styles.lottieInner}>
               <Text
@@ -47,10 +47,10 @@ export default class ResultScreen extends React.Component {
                   alignSelf: "center",
                   alignItems: "center",
                   justifyContent: "center",
-                  marginBottom: 450,
+                  marginBottom: 10,
                 }}
               >
-                忘れ物はありません！
+                忘れ物はありません
               </Text>
               <Text
                 style={{
@@ -59,7 +59,7 @@ export default class ResultScreen extends React.Component {
                   alignSelf: "center",
                   alignItems: "center",
                   justifyContent: "center",
-                  marginBottom: 250,
+                  marginBottom: 400,
                 }}
               >
                 いってらっしゃい！
@@ -74,7 +74,7 @@ export default class ResultScreen extends React.Component {
       );
     } else {
       return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: "#fff" }}>
           <View
             style={
               this.state.isLottieActive ? styles.lottie : { display: "none" }
@@ -106,13 +106,23 @@ export default class ResultScreen extends React.Component {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              overflow: "scroll",
             }}
           >
             <Text style={styles.title}>忘れ物をしていませんか？</Text>
             <View style={styles.itemsWrapper}>
               {this.state.lost_items.map((label, i) => {
                 return (
-                  <Text style={{ color: "#333" }} key={"item" + i}>
+                  <Text
+                    style={{
+                      color: "#333",
+                      fontWeight: "bold",
+                      marginBottom: 8,
+                      fontSize: 16,
+                      textAlign: "center",
+                    }}
+                    key={"item" + i}
+                  >
                     {label}
                   </Text>
                 );
@@ -147,6 +157,7 @@ const styles = StyleSheet.create({
   },
   itemsWrapper: {
     height: "25%",
+    marginBottom: 30,
   },
   lottieInner: {
     flex: 2,

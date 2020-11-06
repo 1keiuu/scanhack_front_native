@@ -33,8 +33,10 @@ export default class Home extends React.Component {
     const history = createMemoryHistory();
 
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>こんにちは{this.state.current_user}さん</Text>
+      <View style={styles.container}>
+        <Text style={{ fontWeight: "bold", fontSize: 18, marginBottom: 150 }}>
+          こんにちは{this.state.current_user}さん
+        </Text>
         <Button
           onPress={() => this.props.navigation.navigate("Camera")}
           style={{
@@ -66,6 +68,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   preview: {
     flex: 1,

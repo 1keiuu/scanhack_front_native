@@ -90,14 +90,25 @@ export default class ItemList extends Component {
         <Text style={styles.errorText}>{this.state.errorText}</Text>
         <View
           style={{
-            flex: 1,
             backgroundColor: "transparent",
             flexDirection: "column",
             justifyContent: "center",
           }}
         >
           {this.state.items.map((item, i) => {
-            return <Text key={"item" + i}>{item}</Text>;
+            return (
+              <Text
+                key={"item" + i}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 20,
+                  marginBottom: 10,
+                  justifyContent: "center",
+                }}
+              >
+                {item}
+              </Text>
+            );
           })}
         </View>
         <Button
@@ -129,6 +140,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "80%",
     marginTop: 40,
+    marginBottom: 50,
   },
   errorText: {
     color: "red",
@@ -145,5 +157,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     width: "70%",
+    marginTop: 100,
   },
 });
