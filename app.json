@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "scanhack",
-    "slug": "scanhack",
+    "name": "Laff",
+    "slug": "laff",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#2E88F0"
     },
     "sdkVersion": "38.0.0",
     "updates": {
