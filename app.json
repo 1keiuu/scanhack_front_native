@@ -19,7 +19,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ikkei12.scanhack"
+      "bundleIdentifier": "com.ikkei12.laff"
     },
     "android": {
       "adaptiveIcon": {
