@@ -47,11 +47,10 @@ export default class CameraScreen extends React.Component {
   }
 
   async takePicture() {
+    this.camera.pausePreview()
     this.setState({ isLoading: true });
     if (this.camera) {
-      const pictureData = await this.camera.takePictureAsync({ base64: true });
-      console.log(this.state);
-
+      const pictureData = await this.camera.takePictureAsync({quality:0.5,base64:true});
       await axios
         .post(
           "/api/v1/image_annotate",
