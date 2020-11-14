@@ -2,21 +2,46 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SignUp from "./screens/SignUp";
 import SignIn from "./screens/SignIn";
-import Home from "./screens/Home";
+import ItemList from "./screens/ItemList";
+import ItemListScreen from "./screens/ItemListScreen";
+import HomeScreen from "./screens/HomeScreen";
 import CameraScreen from "./screens/CameraScreen";
 import ResultScreen from "./screens/ResultScreen";
-import ItemList from "./screens/ItemList";
+
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 
 const RootStack = createStackNavigator(
   {
-    Home: Home,
     SignUp: SignUp,
     SignIn: SignIn,
     ItemList: ItemList,
-    Camera: CameraScreen,
-    Result: ResultScreen,
+    Laff: createBottomTabNavigator(
+      {
+        Home: {
+          screen: createStackNavigator(
+            {
+              Index: HomeScreen,
+              Camera: CameraScreen,
+              Result: ResultScreen,
+            },
+            {
+              initialRouteName: "Index",
+            }
+          ),
+        },
+        ItemList: {
+          screen: ItemListScreen,
+        },
+      },
+      {
+        initialRouteName: "Home",
+        navigationOptions: {
+          headerLeft: null,
+        },
+      }
+    ),
   },
   {
     initialRouteName: "SignUp",
@@ -24,6 +49,7 @@ const RootStack = createStackNavigator(
 );
 
 const AppContainer = createAppContainer(RootStack);
+
 export default function App() {
   return <AppContainer />;
 }
