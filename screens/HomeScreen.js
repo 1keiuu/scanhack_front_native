@@ -11,8 +11,9 @@ export default class HomeScreen extends React.Component {
     };
   }
   static navigationOptions = {
-    headerTitle: "ホーム",
-    headerLeft: null,
+    // headerTitle: "ホーム",
+    // headerLeft: null,
+    headerShown: false,
   };
   async componentDidMount() {
     storage

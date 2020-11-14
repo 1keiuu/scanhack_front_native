@@ -38,13 +38,18 @@ const RootStack = createStackNavigator(
       {
         initialRouteName: "Home",
         navigationOptions: {
-          headerLeft: null,
+          headerShown: false,
+          // headerLeft: null,
+          // headerStyle: { backgroundColor: "#fff", height: 80 },
         },
       }
     ),
   },
   {
     initialRouteName: "SignUp",
+    navigationOptions: {
+      headerShown: false,
+    },
   }
 );
 
