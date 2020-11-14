@@ -22,7 +22,7 @@ export default class ResultScreen extends React.Component {
 
     if (this.props.navigation.state.params.lost_items.length === 0) {
       setTimeout(() => {
-        this.props.navigation.navigate("Home");
+        this.props.navigation.navigate("Index");
       }, 2000);
     }
   }
@@ -30,7 +30,7 @@ export default class ResultScreen extends React.Component {
   onButtonPress() {
     this.setState({ isLottieActive: true });
     setTimeout(() => {
-      this.props.navigation.navigate("Home");
+      this.props.navigation.navigate("Index");
     }, 2000);
   }
 
