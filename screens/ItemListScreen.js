@@ -22,21 +22,35 @@ export default class ItemListScreen extends Component {
     headerShown: false,
   };
   async componentDidMount() {
-    storage
+    await storage
       .load({ key: "credentials" })
       .then((res) => {
-        console.log(res);
         this.setState({ user: { id: res.id, token: res.token } });
       })
       .catch((err) => {
         console.warn(err);
+      });
+
+    await axios
+      .get("/api/v1/users/" + this.state.user.id + "/items", {
+        headers: { Authorization: `Token ${this.state.user.token}` },
+      })
+      .then((res) => {
+        const newArray = res.data.data.map((item) => {
+          return item;
+        });
+        console.log("tete");
+        console.log(newArray);
+        this.setState({ items: newArray });
+      })
+      .catch((e) => {
+        console.log(e);
       });
   }
 
   async onPressAddButton() {
     const input = this.state.currentInput;
 
-    // axios.defaults.headers.Authorization = `Bearer: ${this.state.user.token}`;
     axios
       .post(
         "/api/v1/users/" + this.state.user.id + "/items",
@@ -46,11 +60,10 @@ export default class ItemListScreen extends Component {
         }
       )
       .then((res) => {
-        console.log(res);
         const newArray = this.state.items.map((item) => {
           return item;
         });
-        newArray.push(input);
+        newArray.push(res.data.data);
         this.setState({ items: newArray });
         this.setState({ currentInput: "" });
         this.setState({ isSubmitBtnDisabled: false });
@@ -70,7 +83,7 @@ export default class ItemListScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>持ち物を登録しよう！</Text>
+        <Text style={styles.title}>あなたの持ち物</Text>
         <View style={styles.inputWrapper}>
           <Item style={{ width: "70%" }} regular>
             <Input
@@ -106,18 +119,18 @@ export default class ItemListScreen extends Component {
                   justifyContent: "center",
                 }}
               >
-                {item}
+                {item.name}
               </Text>
             );
           })}
         </View>
-        <Button
+        {/* <Button
           style={styles.submitButton}
           disabled={this.state.isSubmitBtnDisabled}
           onPress={() => this.onPressNextButton()}
         >
           <Text style={{ color: "#fff" }}>完了</Text>
-        </Button>
+        </Button> */}
       </View>
     );
   }
