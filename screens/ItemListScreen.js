@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { Input, Item, Button } from "native-base";
 import axios from "../plugins/axios.js";
 import storage from "../plugins/storage";
@@ -83,7 +83,6 @@ export default class ItemListScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>あなたの持ち物</Text>
         <View style={styles.inputWrapper}>
           <Item style={{ width: "70%" }} regular>
             <Input
@@ -100,12 +99,13 @@ export default class ItemListScreen extends Component {
             <Text style={{ color: "#fff" }}>追加</Text>
           </Button>
         </View>
+        <Text style={styles.title}>あなたの持ち物</Text>
+
         <Text style={styles.errorText}>{this.state.errorText}</Text>
-        <View
+        <ScrollView
           style={{
-            backgroundColor: "transparent",
-            flexDirection: "column",
-            justifyContent: "center",
+            width: "100%",
+            flex: 1,
           }}
         >
           {this.state.items.map((item, i) => {
@@ -116,14 +116,14 @@ export default class ItemListScreen extends Component {
                   fontWeight: "bold",
                   fontSize: 20,
                   marginBottom: 10,
-                  justifyContent: "center",
+                  textAlign: "center",
                 }}
               >
                 {item.name}
               </Text>
             );
           })}
-        </View>
+        </ScrollView>
         {/* <Button
           style={styles.submitButton}
           disabled={this.state.isSubmitBtnDisabled}
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     paddingTop: 130,
-    paddingBottom: 100,
+    paddingBottom: 40,
     backgroundColor: "#fff",
   },
   title: {

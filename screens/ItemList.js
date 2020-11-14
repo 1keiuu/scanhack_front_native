@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { Input, Item, Button } from "native-base";
 import axios from "../plugins/axios.js";
 import storage from "../plugins/storage";
@@ -88,11 +88,10 @@ export default class ItemList extends Component {
           </Button>
         </View>
         <Text style={styles.errorText}>{this.state.errorText}</Text>
-        <View
+        <ScrollView
           style={{
             backgroundColor: "transparent",
-            flexDirection: "column",
-            justifyContent: "center",
+            width: "100%",
           }}
         >
           {this.state.items.map((item, i) => {
@@ -103,14 +102,14 @@ export default class ItemList extends Component {
                   fontWeight: "bold",
                   fontSize: 20,
                   marginBottom: 10,
-                  justifyContent: "center",
+                  textAlign: "center",
                 }}
               >
                 {item}
               </Text>
             );
           })}
-        </View>
+        </ScrollView>
         <Button
           style={styles.submitButton}
           disabled={this.state.isSubmitBtnDisabled}
@@ -129,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     paddingTop: 130,
-    paddingBottom: 100,
+    paddingBottom: 30,
     backgroundColor: "#fff",
   },
   title: {
