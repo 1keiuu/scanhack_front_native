@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Text,
-  View,
-  TouchableHighlight,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, TouchableHighlight, StyleSheet } from "react-native";
 import { Camera } from "expo-camera";
 import * as Permissions from "expo-permissions";
 import axios from "../plugins/axios.js";
@@ -47,10 +41,13 @@ export default class CameraScreen extends React.Component {
   }
 
   async takePicture() {
-    this.camera.pausePreview()
+    this.camera.pausePreview();
     this.setState({ isLoading: true });
     if (this.camera) {
-      const pictureData = await this.camera.takePictureAsync({quality:0.5,base64:true});
+      const pictureData = await this.camera.takePictureAsync({
+        quality: 0.5,
+        base64: true,
+      });
       await axios
         .post(
           "/api/v1/image_annotate",

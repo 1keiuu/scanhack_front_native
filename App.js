@@ -7,6 +7,7 @@ import ItemListScreen from "./screens/ItemListScreen";
 import HomeScreen from "./screens/HomeScreen";
 import CameraScreen from "./screens/CameraScreen";
 import ResultScreen from "./screens/ResultScreen";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
@@ -30,9 +31,19 @@ const RootStack = createStackNavigator(
               initialRouteName: "Index",
             }
           ),
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+              <Icon size={24} name="home" color={tintColor} />
+            ),
+          },
         },
         ItemList: {
           screen: ItemListScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+              <Icon size={24} name="list" color={tintColor} />
+            ),
+          },
         },
       },
       {
